@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Historico from "../components/habitos/Historico";
 import Hoje from "../components/habitos/Hoje";
 import MeusHabitos from "../components/habitos/MeusHabitos";
-import ContainerHabitos from "../components/styles/habitos";
+
 
 export default function Habitos(props){
     const { tela } = props
@@ -24,12 +24,12 @@ export default function Habitos(props){
         </ContainerHabitos>
 
         <Footer>
-            <Link to='/habitos'>
+            <StyledLink to='/habitos'>
                 <p>Hábitos</p>
-            </Link>
-            <Link to='/historico'>
+            </StyledLink>
+            <StyledLink to='/historico'>
                 <p>Histórico</p>
-            </Link>
+            </StyledLink>
         </Footer>
 
     </ContainerPaginaHabitos>
@@ -42,6 +42,13 @@ const ContainerPaginaHabitos = styled.div`
     background-color: #E5E5E5;
 
 `
+const ContainerHabitos = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 22px 17px;
+    margin-top: 70px;
+`
+
 const Header = styled.div`
     position: absolute;
     width: 100%;
@@ -89,4 +96,8 @@ const Footer = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 0 36px 0 36px; 
+`
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: #52B6FF;
 `

@@ -14,9 +14,13 @@ export default function LoginPage(props){
                 <img src={LOGO} />
                 {(tela === "cadastro") ? <Cadastro /> : <FormularioLogin /> }
                 
-                <Link to={`/cadastro`}>
+                {(tela === "cadastro") 
+                    ? <Link to={`/`}>
+                        <p>Já tem uma conta? Faça login!</p>
+                      </Link>
+                    : <Link to={`/cadastro`}>
                     <p>Não tem uma conta? Cadastre-se!</p>
-                </Link>
+                 </Link> }
             </Login>
         </div>
     );

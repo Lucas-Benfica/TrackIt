@@ -10,8 +10,6 @@ export default function MeusHabitos(){
 
     const [adicionar, setAdicionar] = useState(true);
 
-
-        
     return (
         <>
             <ContainerAdicionar>
