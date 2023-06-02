@@ -15,6 +15,8 @@ function App() {
       <Route path='/' element={<LoginPage page={"login"} /> } />
       <Route path='/cadastro' element={<LoginPage page={"cadastro"}/> } />
       <Route path='/habitos' element={<Habitos /> } />
+      <Route path='/hoje' element={<Habitos />} />
+
     </Routes>
     
     </BrowserRouter>

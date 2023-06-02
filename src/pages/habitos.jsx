@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import LOGO from "../assets/logo.jpeg"
 import Historico from "../components/habitos/Historico";
 import Hoje from "../components/habitos/Hoje";
 import MeusHabitos from "../components/habitos/MeusHabitos";
@@ -8,13 +7,13 @@ import ContainerHabitos from "../components/styles/habitos";
 
 export default function Habitos(){
 
-    let pagina = "meus";
+
+
+    let pagina = "hoje";
 
     return (
-
-
-
     <ContainerPaginaHabitos className="page">
+
         <Header>
             <p>TrackIt</p>
             <img src="https://static.adecoretecidos.com.br/public/adecoretecidos/imagens/produtos/painel-sublimado-bob-esponja-17984.png" />
@@ -29,11 +28,7 @@ export default function Habitos(){
             <p>Histórico</p>
         </Footer>
 
-
     </ContainerPaginaHabitos>
-
-
-
     );
 }   
 
