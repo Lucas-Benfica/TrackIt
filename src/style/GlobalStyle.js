@@ -16,9 +16,12 @@ const GlobalStyle = createGlobalStyle`
 		border: 1px solid #D4D4D4;
 		border-radius: 5px;
 		padding: 10px;
-		color: #DBDBDB;
+		color: #666666;
 		opacity: 60%;
 		font-size: 20px;
+		&::placeholder{
+			color: #DBDBDB;
+		}
 	}
 `
 

@@ -12,11 +12,11 @@ function App() {
     <BrowserRouter>
     
     <Routes>
-      <Route path='/' element={<LoginPage page={"login"} /> } />
-      <Route path='/cadastro' element={<LoginPage page={"cadastro"}/> } />
-      <Route path='/habitos' element={<Habitos /> } />
-      <Route path='/hoje' element={<Habitos />} />
-
+      <Route path='/' element={<LoginPage  /> } />
+      <Route path='/:tela' element={<LoginPage /> } />
+      <Route path='/habitos' element={<Habitos tela={"habitos"}/> } />
+      <Route path='/hoje' element={<Habitos tela={"hoje"}/>} />
+      <Route path='/historico' element={<Habitos tela={"historico"}/>} />
     </Routes>
     
     </BrowserRouter>

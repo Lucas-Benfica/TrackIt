@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import ContainerHabitos from "../styles/habitos";
 
 
 export default function Hoje(){
@@ -11,8 +10,8 @@ export default function Hoje(){
             <CardHabito>
                 <div>
                     <h2>Aqui vai ficar o hábito</h2>
-                    <p>Sequência atual: 3 dias</p>
-                    <p>Seu recorde: 5 dias</p>
+                    <h3>Sequência atual: 3 dias</h3>
+                    <h3>Seu recorde: 5 dias</h3>
                 </div>
                 <button>X</button>
             </CardHabito>
@@ -59,7 +58,7 @@ const CardHabito = styled.div`
         color: #666666;
         width: 208px;
         }
-        p{
+        h3{
             width: 146px;
             font-size: 13px;
             line-height: 16px;

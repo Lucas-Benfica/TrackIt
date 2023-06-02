@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import LOGO from "../assets/Logo_PNG.png"
 import Cadastro from "../components/login/Cadastro";
@@ -6,13 +6,13 @@ import FormularioLogin from "../components/login/Formulario";
 
 
 export default function LoginPage(props){
-    const {page} = props;
-
+    const { tela } = useParams();
+    
     return (
         <div className="page">
             <Login>
                 <img src={LOGO} />
-                {(page === "login") ? <FormularioLogin /> : <Cadastro /> }
+                {(tela === "cadastro") ? <Cadastro /> : <FormularioLogin /> }
                 
                 <Link to={`/cadastro`}>
                     <p>Não tem uma conta? Cadastre-se!</p>

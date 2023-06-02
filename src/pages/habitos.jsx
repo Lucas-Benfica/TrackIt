@@ -5,11 +5,8 @@ import Hoje from "../components/habitos/Hoje";
 import MeusHabitos from "../components/habitos/MeusHabitos";
 import ContainerHabitos from "../components/styles/habitos";
 
-export default function Habitos(){
-
-
-
-    let pagina = "hoje";
+export default function Habitos(props){
+    const { tela } = props
 
     return (
     <ContainerPaginaHabitos className="page">
@@ -20,12 +17,19 @@ export default function Habitos(){
         </Header>
 
         <ContainerHabitos>
-            {(pagina === 'meus') ? <MeusHabitos /> : ((pagina === 'hoje') ? <Hoje /> : <Historico />)}        
+            {(tela === 'habitos') && <MeusHabitos />}
+            {(tela === 'hoje') && <Hoje />}
+            {(tela === 'historico') && <Historico />}
+
         </ContainerHabitos>
 
         <Footer>
-            <p>Hábitos</p>
-            <p>Histórico</p>
+            <Link to='/habitos'>
+                <p>Hábitos</p>
+            </Link>
+            <Link to='/historico'>
+                <p>Histórico</p>
+            </Link>
         </Footer>
 
     </ContainerPaginaHabitos>
