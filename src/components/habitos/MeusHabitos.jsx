@@ -8,7 +8,6 @@ import { TokenContext } from "../../context/TokenContext";
 
 
 export default function MeusHabitos(){
-    let teste = [];
 
     const { token } = useContext(TokenContext);
     const config = {
@@ -20,7 +19,7 @@ export default function MeusHabitos(){
 
     const[listaDeHabitos, setListaDeHabitos] = useState([]);
 
-    const [adicionar, setAdicionar] = useState(true);
+    const [adicionar, setAdicionar] = useState(false);
     function queroAdd(){
         (adicionar) ? setAdicionar(false) : setAdicionar(true);
     }
@@ -31,10 +30,7 @@ export default function MeusHabitos(){
             setListaDeHabitos(resp.data);
             console.log(resp.data);
         })
-
-
-
-
+        .catch((erro) => console.log(erro.response.data));
 
     }, [adicionar]);
 
@@ -47,9 +43,9 @@ export default function MeusHabitos(){
 
             {(adicionar) && <CriarHabito queroAdd={queroAdd} /> }
 
-            {(teste.length === 0) && <TxtNone>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</TxtNone>}
+            {(listaDeHabitos.length === 0) && <TxtNone>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</TxtNone>}
             
-            {(teste.length !== 0) && <Habito /> }
+            {(listaDeHabitos.length !== 0) && listaDeHabitos.map((habito) => <Habito key={habito.id} nome={habito.name} days={habito.days} />)}
             
         </>
     );

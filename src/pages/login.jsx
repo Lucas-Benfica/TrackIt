@@ -16,8 +16,6 @@ export default function LoginPage(props){
     useEffect(() => {
         const token = localStorage.getItem('token');
         const img = localStorage.getItem('image');
-        console.log("token", token);
-        console.log("img", img);
         if (token) {
         console.log(token);
         setToken(token);
