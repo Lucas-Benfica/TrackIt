@@ -1,23 +1,51 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import CriarHabito from "./CriarHabito";
 import Habito from "./Habito";
-
+import { useContext } from "react";
+import { TokenContext } from "../../context/TokenContext";
 
 
 export default function MeusHabitos(){
     let teste = [];
 
+    const { token } = useContext(TokenContext);
+    const config = {
+        headers: {
+            Authorization: "Bearer " + token
+        }
+    }
+    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
+
+    const[listaDeHabitos, setListaDeHabitos] = useState([]);
+
     const [adicionar, setAdicionar] = useState(true);
+    function queroAdd(){
+        (adicionar) ? setAdicionar(false) : setAdicionar(true);
+    }
+    
+    useEffect(() => {
+        axios.get(URL, config)
+        .then( (resp) => {
+            setListaDeHabitos(resp.data);
+            console.log(resp.data);
+        })
+
+
+
+
+
+    }, [adicionar]);
 
     return (
         <>
             <ContainerAdicionar>
                 <h1>Meus hábitos</h1>
-                <button>+</button>
+                <button onClick={queroAdd} >+</button>
             </ContainerAdicionar>
 
-            {(teste.length === 0) && <CriarHabito /> }
+            {(adicionar) && <CriarHabito queroAdd={queroAdd} /> }
 
             {(teste.length === 0) && <TxtNone>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</TxtNone>}
             

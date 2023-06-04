@@ -1,13 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const padrao = {email: '', name: '', image: '', password: ''}
 
 export default function Cadastro(){
-
-    const navigate = useNavigate();
 
     const [infoCadastro, setInfoCadastro] = useState(padrao);
 

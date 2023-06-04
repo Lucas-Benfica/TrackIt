@@ -1,12 +1,8 @@
-import { createContext, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Habitos from './pages/habitos'
 import LoginPage from './pages/login'
 
 function App() {
-
-
-
 
   return (
     <BrowserRouter>
@@ -20,7 +16,8 @@ function App() {
     </Routes>
     
     </BrowserRouter>
-  )
+  );
+  
 }
 
 export default App

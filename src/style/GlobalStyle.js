@@ -2,7 +2,6 @@ import { createGlobalStyle } from "styled-components"
 
 const GlobalStyle = createGlobalStyle`
 	.page{
-		background-color: #FFFFFF;
 		width: 375px;
 		height: 100vh;
 		margin: 0 auto;
@@ -22,6 +21,9 @@ const GlobalStyle = createGlobalStyle`
 		&::placeholder{
 			color: #DBDBDB;
 		}
+	}
+	button{
+		cursor: pointer;
 	}
 `
 

@@ -1,23 +1,66 @@
 import styled from "styled-components";
+import dayjs from 'dayjs';
+import 'dayjs/locale/pt-br';
+import { useEffect } from "react";
+
+dayjs.locale('pt-br');
 
 
-export default function Hoje(){
+
+export default function Hoje() {
+
+
+
+    useEffect(() => {
+
+    }, []);
+
+
     return (
-    <DiaHoje>
-        <h1>Segunda, 29/05</h1>
-        <p>Nenhum hábito concluído ainda</p>
-        <HabitosDeHoje>
-            <CardHabito>
-                <div>
-                    <h2>Aqui vai ficar o hábito</h2>
-                    <h3>Sequência atual: 3 dias</h3>
-                    <h3>Seu recorde: 5 dias</h3>
-                </div>
-                <button>X</button>
-            </CardHabito>
-        </HabitosDeHoje>
-    </DiaHoje>
+        <DiaHoje>
+            <DiaDeHoje />
+            <p>Nenhum hábito concluído ainda</p>
+            <HabitosDeHoje>
+                <Habito />
+            </HabitosDeHoje>
+
+
+        </DiaHoje>
     )
+}
+
+function DiaDeHoje() {
+    const diaDaSemana = dayjs().day();
+    const diaAtual = dayjs().format('DD/MM');
+
+    const nomeDiaDaSemana = [
+        'Domingo',
+        'Segunda-feira',
+        'Terça-feira',
+        'Quarta-feira',
+        'Quinta-feira',
+        'Sexta-feira',
+        'Sábado'
+    ][diaDaSemana];
+
+    return (
+        <h1>
+            {nomeDiaDaSemana}, {diaAtual}
+        </h1>
+    );
+}
+function Habito() {
+
+    return (
+        <CardHabito>
+            <div>
+                <h2>Aqui vai ficar o hábito</h2>
+                <h3>Sequência atual: 3 dias</h3>
+                <h3>Seu recorde: 5 dias</h3>
+            </div>
+            <button>X</button>
+        </CardHabito>
+    );
 }
 
 const DiaHoje = styled.div`
@@ -33,6 +76,7 @@ const DiaHoje = styled.div`
         color: #BABABA;
         margin-bottom: 28px;
     }
+
 `
 
 const HabitosDeHoje = styled.div`

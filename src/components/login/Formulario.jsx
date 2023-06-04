@@ -41,7 +41,10 @@ export default function FormularioLogin() {
                 console.log(resp.data);
 
                 setToken(resp.data.token);
-                setImg(resp.data.image)
+                setImg(resp.data.image);
+
+                localStorage.setItem('token', resp.data.token);
+                localStorage.setItem('image', resp.data.image);
 
                 navigate('/hoje');
 

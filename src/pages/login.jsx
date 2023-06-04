@@ -3,9 +3,31 @@ import styled from "styled-components";
 import LOGO from "../assets/Logo_PNG.png"
 import Cadastro from "../components/login/Cadastro";
 import FormularioLogin from "../components/login/Formulario";
+import { useContext, useEffect } from "react";
+import { TokenContext } from "../context/TokenContext";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function LoginPage(props){
+
+    const {setToken, setImg} = useContext(TokenContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const img = localStorage.getItem('image');
+        console.log("token", token);
+        console.log("img", img);
+        if (token) {
+        console.log(token);
+        setToken(token);
+        setImg(img);
+        navigate('/hoje');
+        }
+
+    }, []);
+
+
     const { tela } = useParams();
     
     return (
