@@ -42,6 +42,11 @@ export default function CriarHabito({ queroAdd }) {
             .catch((erro) => { alert(erro.response.data.messege); setDisabled(false) })
     }
 
+    function verificar(){
+        if(newName === ''){
+            alert("Hábito com nome vazio!");
+        }
+    }
 
     return (
         <NewHabito  data-test="habit-create-container">
@@ -54,7 +59,7 @@ export default function CriarHabito({ queroAdd }) {
                 </BotoesSemana>
                 <BotoesFinalizar>
                     <p data-test="habit-create-cancel-btn" onClick={queroAdd} disabled={disabled}>Cancelar</p>
-                    <button data-test="habit-create-save-btn" type="submit" disabled={disabled}>
+                    <button data-test="habit-create-save-btn" type="submit" disabled={disabled} onClick={verificar}>
                         {(disabled) ?
                             <ThreeDots
                                 height="35"

@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
+import { ThreeDots } from "react-loader-spinner";
 
 const padrao = {email: '', name: '', image: '', password: ''}
 
@@ -9,6 +11,8 @@ export default function Cadastro(){
     const [infoCadastro, setInfoCadastro] = useState(padrao);
 
     const [disabled, setDisabled] = useState(false);
+
+    const navigate = useNavigate();
 
     function atualizarInfos(info, newValor){
         setInfoCadastro( prevState => {
@@ -30,6 +34,7 @@ export default function Cadastro(){
             console.log(resp.data);
             setDisabled(false);
             setInfoCadastro(padrao);
+            navigate("/");
         })
         .catch( erro => {
             console.log(erro.response.data);
@@ -74,7 +79,22 @@ export default function Cadastro(){
                 value={infoCadastro.image}
                 onChange={ ev => atualizarInfos('image', ev.target.value)}
             />
-            <button data-test="signup-btn" type="submit" disabled={disabled}>Cadastrar</button>
+            <button data-test="signup-btn" type="submit" disabled={disabled}>
+                
+                {(disabled) ?
+                        <ThreeDots
+                            height="40"
+                            width="40"
+                            radius="9"
+                            color="#FFFFFF"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClassName=""
+                            visible={true}
+                        />
+                        : "Cadastrar"}
+                
+            </button>
         </FormLogin>
     );
 }
