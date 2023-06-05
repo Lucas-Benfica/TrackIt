@@ -34,7 +34,6 @@ export default function CriarHabito({ queroAdd }) {
 
     function addTarefa(ev) {
         ev.preventDefault();
-        console.log("entrou aqui");
         const tarefa = { name: newName, days: diasTarefa };
         setDisabled(true);
 
@@ -45,17 +44,17 @@ export default function CriarHabito({ queroAdd }) {
 
 
     return (
-        <NewHabito>
+        <NewHabito  data-test="habit-create-container">
             <form onSubmit={(ev) => addTarefa(ev)}>
-                <input type="text" required placeholder="Nome do hábito" name="newHabito"
+                <input data-test="habit-name-input" type="text" required placeholder="Nome do hábito" name="newHabito"
                     value={newName} onChange={(e) => setNewName(e.target.value)} disabled={disabled}
                 />
                 <BotoesSemana>
-                    {SEMANA.map((letra, i) => <StyledButton id={i} key={i} type="button" onClick={() => addDia(i)} diasTarefa={diasTarefa} disabled={disabled}>{letra}</StyledButton>)}
+                    {SEMANA.map((letra, i) => <StyledButton data-test="habit-day" id={i} key={i} type="button" onClick={() => addDia(i)} diasTarefa={diasTarefa} disabled={disabled}>{letra}</StyledButton>)}
                 </BotoesSemana>
                 <BotoesFinalizar>
-                    <p onClick={queroAdd} disabled={disabled}>Cancelar</p>
-                    <button type="submit" disabled={disabled}>
+                    <p data-test="habit-create-cancel-btn" onClick={queroAdd} disabled={disabled}>Cancelar</p>
+                    <button data-test="habit-create-save-btn" type="submit" disabled={disabled}>
                         {(disabled) ?
                             <ThreeDots
                                 height="35"

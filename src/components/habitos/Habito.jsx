@@ -59,12 +59,12 @@ export default function Habito({id, nome, days, config, atualizar, setAtualizar}
     }
 
     return(
-        <HabitoDiv>
-            <h1>{nome}</h1>
+        <HabitoDiv data-test="habit-container" >
+            <h1 data-test="habit-name">{nome}</h1>
             <BotoesSemana>
-                    {SEMANA.map((letra, i) => <StyledButton key={i} id={i} days={days} disabled={true} >{letra}</StyledButton>)}
+                    {SEMANA.map((letra, i) => <StyledButton data-test="habit-day" key={i} id={i} days={days} disabled={true} >{letra}</StyledButton>)}
             </BotoesSemana>
-            <BsTrash className="icon" onClick={queroExcluir}/>
+            <BsTrash data-test="habit-delete-btn" className="icon" onClick={queroExcluir}/>
             {excluir && <Excluir  />}
         </HabitoDiv>
     );

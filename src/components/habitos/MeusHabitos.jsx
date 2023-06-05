@@ -37,7 +37,7 @@ export default function MeusHabitos(){
         <>
             <ContainerAdicionar>
                 <h1>Meus hábitos</h1>
-                <button onClick={queroAdd} >+</button>
+                <button onClick={queroAdd} data-test="habit-create-btn">+</button>
             </ContainerAdicionar>
 
             {(adicionar) && <CriarHabito queroAdd={queroAdd} /> }

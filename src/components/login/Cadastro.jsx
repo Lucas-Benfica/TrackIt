@@ -41,7 +41,7 @@ export default function Cadastro(){
 
     return (
         <FormLogin onSubmit={cadastrar}>
-            <input
+            <input data-test="email-input"
                 id="email"
                 placeholder="email"
                 required
@@ -49,7 +49,7 @@ export default function Cadastro(){
                 value={infoCadastro.email}
                 onChange={ ev => atualizarInfos('email', ev.target.value)}
             />
-            <input
+            <input data-test="password-input"
                 id="senha"
                 type="password"
                 placeholder="senha"
@@ -58,7 +58,7 @@ export default function Cadastro(){
                 value={infoCadastro.password}
                 onChange={ ev => atualizarInfos('password', ev.target.value)}
             />
-            <input
+            <input data-test="user-name-input" 
                 id="nome"
                 placeholder="nome"
                 required
@@ -66,7 +66,7 @@ export default function Cadastro(){
                 value={infoCadastro.name}
                 onChange={ ev => atualizarInfos('name', ev.target.value)}
             />
-            <input
+            <input data-test="user-image-input"
                 id="foto"
                 placeholder="foto"
                 required
@@ -74,7 +74,7 @@ export default function Cadastro(){
                 value={infoCadastro.image}
                 onChange={ ev => atualizarInfos('image', ev.target.value)}
             />
-            <button type="submit" disabled={disabled}>Cadastrar</button>
+            <button data-test="signup-btn" type="submit" disabled={disabled}>Cadastrar</button>
         </FormLogin>
     );
 }

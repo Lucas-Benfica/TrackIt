@@ -34,11 +34,11 @@ export default function LoginPage(props){
                 {(tela === "cadastro") ? <Cadastro /> : <FormularioLogin /> }
                 
                 {(tela === "cadastro") 
-                    ? <Link to={`/`}>
-                        <p>Já tem uma conta? Faça login!</p>
+                    ? <Link to={`/`} data-test="login-link">
+                        <p >Já tem uma conta? Faça login!</p>
                       </Link>
-                    : <Link to={`/cadastro`}>
-                    <p>Não tem uma conta? Cadastre-se!</p>
+                    : <Link to={`/cadastro`} data-test="signup-link">
+                    <p >Não tem uma conta? Cadastre-se!</p>
                  </Link> }
             </Login>
         </div>

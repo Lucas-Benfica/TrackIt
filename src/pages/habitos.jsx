@@ -19,9 +19,9 @@ export default function Habitos(props) {
     return (
         <ContainerPaginaHabitos className="page">
             <DivHeader>
-                <Header>
+                <Header data-test="header">
                     <p>TrackIt</p>
-                    <img src={img} />
+                    <img src={img} data-test="avatar"/>
                 </Header>
             </DivHeader>
             <ContainerHabitos>
@@ -32,12 +32,12 @@ export default function Habitos(props) {
 
             </ContainerHabitos>
             <DivFooter>
-                <Footer>
-                    <StyledLink to='/habitos'>
+                <Footer data-test="menu">
+                    <StyledLink to='/habitos' data-test="habit-link">
                         <p>Hábitos</p>
                     </StyledLink>
 
-                    <StyledCirc to='/hoje'>
+                    <StyledCirc to='/hoje' data-test="today-link">
                         <CircularProgressbar
                             value={percent}
                             text={`Hoje`}
@@ -52,7 +52,7 @@ export default function Habitos(props) {
                         />
                     </StyledCirc>
 
-                    <StyledLink to='/historico'>
+                    <StyledLink to='/historico' data-test="history-link" >
                         <p>Histórico</p>
                     </StyledLink>
                 </Footer>

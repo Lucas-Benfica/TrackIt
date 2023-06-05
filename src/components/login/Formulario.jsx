@@ -61,7 +61,7 @@ export default function FormularioLogin() {
 
     return (
         <FormLogin onSubmit={verificarUser} desabilitado={disabled}>
-            <input
+            <input  data-test="email-input"
                 id="email"
                 placeholder="email"
                 required
@@ -69,7 +69,7 @@ export default function FormularioLogin() {
                 value={userLogin.email}
                 onChange={ev => atualizarInfos('email', ev.target.value)}
             />
-            <input
+            <input data-test="password-input"
                 id="senha"
                 type="password"
                 placeholder="senha"
@@ -78,7 +78,7 @@ export default function FormularioLogin() {
                 value={userLogin.password}
                 onChange={ev => atualizarInfos('password', ev.target.value)}
             />
-            <button className='desbotado' type="submit" disabled={disabled}>
+            <button data-test="login-btn" className='desbotado' type="submit" disabled={disabled}>
                 
                 {(disabled) ? 
                     <ThreeDots
