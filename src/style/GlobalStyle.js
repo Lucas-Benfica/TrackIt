@@ -6,7 +6,6 @@ const GlobalStyle = createGlobalStyle`
 		height: 100vh;
 		margin: 0 auto;
 		font-family: 'Lexend Deca', sans-serif;
-		position: relative;
 	}
 	input{
 		width: 303px;

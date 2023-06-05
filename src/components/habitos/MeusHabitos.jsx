@@ -18,7 +18,7 @@ export default function MeusHabitos(){
     const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
 
     const[listaDeHabitos, setListaDeHabitos] = useState([]);
-
+    const[atualizar, setAtualizar] = useState(false);
     const [adicionar, setAdicionar] = useState(false);
     function queroAdd(){
         (adicionar) ? setAdicionar(false) : setAdicionar(true);
@@ -32,7 +32,7 @@ export default function MeusHabitos(){
         })
         .catch((erro) => console.log(erro.response.data));
 
-    }, [adicionar]);
+    }, [adicionar, atualizar]);
 
     return (
         <>
@@ -45,7 +45,8 @@ export default function MeusHabitos(){
 
             {(listaDeHabitos.length === 0) && <TxtNone>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</TxtNone>}
             
-            {(listaDeHabitos.length !== 0) && listaDeHabitos.map((habito) => <Habito key={habito.id} nome={habito.name} days={habito.days} />)}
+            {(listaDeHabitos.length !== 0) && listaDeHabitos.map((habito) => (
+                        <Habito key={habito.id} id={habito.id} nome={habito.name} days={habito.days} config={config} atualizar={atualizar} setAtualizar={setAtualizar} />))}
             
         </>
     );
@@ -80,10 +81,6 @@ const ContainerAdicionar = styled.div`
     }
 `
 
-const ContainerTarefas = styled.div`
-    background-color: #e5e5e5
-
-`
 const TxtNone = styled.div`
     font-size: 17.976px;
     line-height: 22px;

@@ -1,27 +1,60 @@
 import styled from "styled-components";
 import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import { PercentContext } from "../../context/PercentContext";
+import { TokenContext } from "../../context/TokenContext";
+import axios from "axios";
 
 dayjs.locale('pt-br');
 
 
-
 export default function Hoje() {
 
+    const[listaDeHabitos, setListaDeHabitos] = useState([]);
 
+    const { token } = useContext(TokenContext);
+    const config = {
+        headers: {
+            Authorization: "Bearer " + token
+        }
+    }
+    const {percent, calcPorcentagem} = useContext(PercentContext);
+    const [numConcluidos, setNumConcluidos] = useState(0);
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
+        const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today";
+
+        axios.get(URL, config)
+        .then( (resp) => {
+            console.log(resp.data);
+
+            let contarConcuidos = 0;
+            let contarTotal = resp.data.length;
+
+            resp.data.forEach((habito) => {
+                if(habito.done){
+                    contarConcuidos++;
+                }
+            })
+
+            setListaDeHabitos(resp.data); 
+            setTotal(contarTotal);
+            setNumConcluidos(contarConcuidos);
+            calcPorcentagem(contarTotal, contarConcuidos)
+        })
+        .catch((erro) => console.log(erro));
 
     }, []);
 
 
     return (
-        <DiaHoje>
+        <DiaHoje percent={percent}>
             <DiaDeHoje />
-            <p>Nenhum hábito concluído ainda</p>
+            {(percent === 0) ? <p>Nenhum hábito concluído ainda</p> : <p>{percent}% dos hábitos concluídos</p>}
             <HabitosDeHoje>
-                <Habito />
+                {listaDeHabitos.map((habito) => <Habito key={habito.id} texto={habito.name} feito={habito.done} currentSequence={habito.currentSequence} highestSequence={habito.highestSequence} />)}
             </HabitosDeHoje>
 
 
@@ -49,14 +82,14 @@ function DiaDeHoje() {
         </h1>
     );
 }
-function Habito() {
+function Habito({texto, feito, currentSequence, highestSequence }) {
 
     return (
-        <CardHabito>
+        <CardHabito >
             <div>
-                <h2>Aqui vai ficar o hábito</h2>
-                <h3>Sequência atual: 3 dias</h3>
-                <h3>Seu recorde: 5 dias</h3>
+                <h2>{texto}</h2>
+                <h3>Sequência atual: {currentSequence} dias</h3>
+                <h3>Seu recorde: {highestSequence} dias</h3>
             </div>
             <button>X</button>
         </CardHabito>
@@ -73,7 +106,7 @@ const DiaHoje = styled.div`
     p{
         font-size: 18px;
         line-height: 22px;
-        color: #BABABA;
+        color: ${ (p) => (p.percent === 0) ? "#BABABA" : "#8FC549" };
         margin-bottom: 28px;
     }
 
@@ -101,9 +134,10 @@ const CardHabito = styled.div`
         line-height: 25px;
         color: #666666;
         width: 208px;
+        margin-bottom: 7px;
         }
         h3{
-            width: 146px;
+            width: 150px;
             font-size: 13px;
             line-height: 16px;
             color: #666666;

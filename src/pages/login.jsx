@@ -17,10 +17,9 @@ export default function LoginPage(props){
         const token = localStorage.getItem('token');
         const img = localStorage.getItem('image');
         if (token) {
-        console.log(token);
-        setToken(token);
-        setImg(img);
-        navigate('/hoje');
+            setToken(token);
+            setImg(img);
+            navigate('/hoje');
         }
 
     }, []);

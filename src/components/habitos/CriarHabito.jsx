@@ -17,7 +17,7 @@ export default function CriarHabito({ queroAdd }) {
         }
     }
     const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
-
+    
     const [newName, setNewName] = useState('');
     const [diasTarefa, setDiasTarefa] = useState([]);
 

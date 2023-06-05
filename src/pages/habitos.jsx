@@ -5,82 +5,92 @@ import Hoje from "../components/habitos/Hoje";
 import MeusHabitos from "../components/habitos/MeusHabitos";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import "react-circular-progressbar/dist/styles.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { PercentContext } from "../context/PercentContext";
+import { TokenContext } from "../context/TokenContext";
 
 
 export default function Habitos(props) {
     const { tela } = props;
 
-    const [percentage, setPercentage] = useState(60);
-
-
+    const {img} = useContext(TokenContext);
+    const {percent} = useContext(PercentContext);
 
     return (
         <ContainerPaginaHabitos className="page">
-
-            <Header>
-                <p>TrackIt</p>
-                <img src="https://static.adecoretecidos.com.br/public/adecoretecidos/imagens/produtos/painel-sublimado-bob-esponja-17984.png" />
-            </Header>
-
+            <DivHeader>
+                <Header>
+                    <p>TrackIt</p>
+                    <img src={img} />
+                </Header>
+            </DivHeader>
             <ContainerHabitos>
 
                 {(tela === 'habitos') && <MeusHabitos />}
-                {(tela === 'hoje') && <Hoje percentage={percentage} setPercentage={setPercentage} />}
+                {(tela === 'hoje') && <Hoje />}
                 {(tela === 'historico') && <Historico />}
 
             </ContainerHabitos>
+            <DivFooter>
+                <Footer>
+                    <StyledLink to='/habitos'>
+                        <p>Hábitos</p>
+                    </StyledLink>
 
+                    <StyledCirc to='/hoje'>
+                        <CircularProgressbar
+                            value={percent}
+                            text={`Hoje`}
+                            background
+                            backgroundPadding={6}
+                            styles={buildStyles({
+                                backgroundColor: "#3e98c7",
+                                textColor: "#fff",
+                                pathColor: "#fff",
+                                trailColor: "transparent"
+                            })}
+                        />
+                    </StyledCirc>
 
-
-            <Footer>
-                <StyledLink to='/habitos'>
-                    <p>Hábitos</p>
-                </StyledLink>
-
-                <StyledCirc to='/hoje'>
-                    <CircularProgressbar
-                        value={percentage}
-                        text={`Hoje`}
-                        background
-                        backgroundPadding={6}
-                        styles={buildStyles({
-                            backgroundColor: "#3e98c7",
-                            textColor: "#fff",
-                            pathColor: "#fff",
-                            trailColor: "transparent"
-                        })}
-                    />
-                </StyledCirc>
-
-                <StyledLink to='/historico'>
-                    <p>Histórico</p>
-                </StyledLink>
-            </Footer>
-
+                    <StyledLink to='/historico'>
+                        <p>Histórico</p>
+                    </StyledLink>
+                </Footer>
+            </DivFooter>
         </ContainerPaginaHabitos>
     );
 }
 
+
+
 const ContainerPaginaHabitos = styled.div`
+    height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: #E5E5E5;
+    position: relative;
 
 `
 const ContainerHabitos = styled.div`
+    height: 100%;
     display: flex;
     flex-direction: column;
     padding: 22px 17px;
     margin-top: 70px;
+    margin-bottom: 140px;
 `
-
-const Header = styled.div`
-    position: absolute;
+const DivHeader = styled.div`
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
     width: 100%;
     height: 70px;
-    left: 0px;
-    top: 0px;
+`
+const Header = styled.div`
+    width: 375px;
+    height: 70px;
+    margin: 0 auto;
     background: #126BA5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     padding: 0 18px 0;
@@ -107,13 +117,18 @@ const Header = styled.div`
 
     
 `
-
-const Footer = styled.div`
-    position: absolute;
+const DivFooter = styled.div`
+    position: fixed;
     left: 0;
     bottom: 0;
+    z-index: 10;
+    width: 100%;
+    height: 70px;
+`
+const Footer = styled.div`
     width: 375px;
     height: 70px;
+    margin: 0 auto;
     background-color: #FFFFFF;
     font-size: 18px;
     line-height: 22px;
@@ -122,12 +137,12 @@ const Footer = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 0 36px 0 36px; 
+    position: relative;
 `
 const StyledLink = styled(Link)`
     text-decoration: none;
     color: #52B6FF;
 `
-
 const StyledCirc = styled(Link)`
     width: 91px;
     height: 91px;
