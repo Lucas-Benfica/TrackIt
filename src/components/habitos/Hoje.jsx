@@ -5,13 +5,15 @@ import { useContext, useEffect, useState } from "react";
 import { PercentContext } from "../../context/PercentContext";
 import { TokenContext } from "../../context/TokenContext";
 import axios from "axios";
+import { IoIosCheckmark } from "react-icons/io";
 
 dayjs.locale('pt-br');
 
 
 export default function Hoje() {
 
-    const[listaDeHabitos, setListaDeHabitos] = useState([]);
+    const[listaDeHabitos, setListaDeHabitos] = useState(undefined);
+    const [check, setCheck] = useState(false);
 
     const { token } = useContext(TokenContext);
     const config = {
@@ -20,18 +22,15 @@ export default function Hoje() {
         }
     }
     const {percent, calcPorcentagem} = useContext(PercentContext);
-    const [numConcluidos, setNumConcluidos] = useState(0);
-    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today";
-
+        
         axios.get(URL, config)
         .then( (resp) => {
-            console.log(resp.data);
 
             let contarConcuidos = 0;
-            let contarTotal = resp.data.length;
+            let contarTotal = (resp.data.length === 0) ? 1 : resp.data.length ;
 
             resp.data.forEach((habito) => {
                 if(habito.done){
@@ -40,22 +39,51 @@ export default function Hoje() {
             })
 
             setListaDeHabitos(resp.data); 
-            setTotal(contarTotal);
-            setNumConcluidos(contarConcuidos);
-            calcPorcentagem(contarTotal, contarConcuidos)
+            calcPorcentagem(contarTotal, contarConcuidos);
+
         })
         .catch((erro) => console.log(erro));
 
-    }, []);
+    }, [check]);
 
+       
+    function Habito({id, texto, feito, currentSequence, highestSequence, check, setCheck}) {
+    
+        function marcarFeito(id, feito){
+            if(feito){
+                const URL2 = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`;
+                axios.post(URL2, {}, config)
+                .then((resp) => {(check) ? setCheck(false) : setCheck(true)})
+                .catch((erro) => console.log(erro.response.data))
+            }
+            else{
+                const URL2 = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`;
+                axios.post(URL2, {}, config)
+                .then((resp) => {(check) ? setCheck(false) : setCheck(true)})
+                .catch((erro) => console.log(erro.response.data))
+            }
+        }
+
+        return (
+            <CardHabito feito={feito} >
+                <div>
+                    <h2>{texto}</h2>
+                    <h3>Sequência atual: {currentSequence} dias</h3>
+                    <h3 className="record">Seu recorde: {highestSequence} dias</h3>
+                </div>
+                <button onClick={() => marcarFeito(id, feito)}><IoIosCheckmark className="icon" /></button>
+            </CardHabito>
+        );
+    }
 
     return (
         <DiaHoje percent={percent}>
             <DiaDeHoje />
-            {(percent === 0) ? <p>Nenhum hábito concluído ainda</p> : <p>{percent}% dos hábitos concluídos</p>}
-            <HabitosDeHoje>
-                {listaDeHabitos.map((habito) => <Habito key={habito.id} texto={habito.name} feito={habito.done} currentSequence={habito.currentSequence} highestSequence={habito.highestSequence} />)}
-            </HabitosDeHoje>
+            {(percent === 0 ) ? <p>Nenhum hábito concluído ainda</p> : <p>{percent}% dos hábitos concluídos</p>}
+            {(listaDeHabitos) && (<HabitosDeHoje>
+                {listaDeHabitos.map((habito) => <Habito key={habito.id} id={habito.id} texto={habito.name} feito={habito.done} 
+                        currentSequence={habito.currentSequence} highestSequence={habito.highestSequence} check={check} setCheck={setCheck} />)}
+            </HabitosDeHoje>)}
 
 
         </DiaHoje>
@@ -82,19 +110,7 @@ function DiaDeHoje() {
         </h1>
     );
 }
-function Habito({texto, feito, currentSequence, highestSequence }) {
 
-    return (
-        <CardHabito >
-            <div>
-                <h2>{texto}</h2>
-                <h3>Sequência atual: {currentSequence} dias</h3>
-                <h3>Seu recorde: {highestSequence} dias</h3>
-            </div>
-            <button>X</button>
-        </CardHabito>
-    );
-}
 
 const DiaHoje = styled.div`
     
@@ -127,6 +143,7 @@ const CardHabito = styled.div`
     margin-bottom: 10px;
 
     div{
+        width: 200px;
         display: flex;
         flex-direction: column;
         h2{
@@ -137,10 +154,14 @@ const CardHabito = styled.div`
         margin-bottom: 7px;
         }
         h3{
-            width: 150px;
+            width: 160px;
             font-size: 13px;
             line-height: 16px;
             color: #666666;
+            /*{ continuar aqui
+                font-size: 13px;
+                margin: 0;
+            }*/
         }
         margin-right: 35px;
     }
@@ -148,8 +169,17 @@ const CardHabito = styled.div`
     button{
         width: 69px;
         height: 69px;
-        background-color: #EBEBEB;
+        background-color: ${(p) => (p.feito) ? "#8FC549" : "#EBEBEB"};
         border: 1px solid #E7E7E7;
         border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
+
+    .icon{
+        font-size: 150px;
+        color: #FFFFFF;
+    }
+
 `

@@ -28,7 +28,6 @@ export default function MeusHabitos(){
         axios.get(URL, config)
         .then( (resp) => {
             setListaDeHabitos(resp.data);
-            console.log(resp.data);
         })
         .catch((erro) => console.log(erro.response.data));
 

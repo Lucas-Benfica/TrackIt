@@ -3,7 +3,9 @@ import { createContext, useState } from "react";
 export const PercentContext = createContext();
 
 export const PercentProvider = ({children}) => {
-    const [percent, setPercent] = useState(0);
+    const inicial = 0;
+
+    const [percent, setPercent] = useState(inicial);
 
     function calcPorcentagem(numTotal, numConcluidos){
         let porcentagem = (numConcluidos/numTotal) * 100;
